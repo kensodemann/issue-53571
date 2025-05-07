@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, effect, signal, WritableSignal } from '@angular/core';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 
@@ -8,20 +8,22 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
   imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent {
-  constructor() {
-    StatusBar.setStyle({ style: Style.Default });
-    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    this.handleDarkModeChange(darkModeMediaQuery);
-    darkModeMediaQuery.addEventListener('change', this.handleDarkModeChange);
-  }
+  readonly isDark: WritableSignal<boolean>;
 
-  private async handleDarkModeChange(event: { matches: boolean }) {
-    if (event.matches) {
-      console.log('Dark Mode');
-      await StatusBar.setStyle({ style: Style.Dark });
-    } else {
-      console.log('Light Mode');
-      await StatusBar.setStyle({ style: Style.Light });
-    }
+  constructor() {
+    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    this.isDark = signal(darkModeMediaQuery.matches);
+    darkModeMediaQuery.addEventListener('change', (evt: { matches: boolean }) => this.isDark.set(evt.matches));
+
+    effect(() => {
+      console.log('in effect');
+      if (this.isDark()) {
+        console.log('Dark Mode');
+        StatusBar.setStyle({ style: Style.Dark });
+      } else {
+        console.log('Light Mode');
+        StatusBar.setStyle({ style: Style.Light });
+      }
+    });
   }
 }
