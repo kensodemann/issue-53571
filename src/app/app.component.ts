@@ -19,11 +19,9 @@ export class AppComponent {
     if (event.matches) {
       console.log('Dark Mode');
       await StatusBar.setStyle({ style: Style.Dark });
-      await StatusBar.setBackgroundColor({ color: '#000000' });
     } else {
       console.log('Light Mode');
       await StatusBar.setStyle({ style: Style.Light });
-      await StatusBar.setBackgroundColor({ color: '#FFFFFF' });
     }
   }
 }
