@@ -1,7 +1,7 @@
 {
   "name": "issue-53571",
   "version": "0.0.1",
-  "author": "Ionic Framework",
+  "author": "Ionic Framework CS Team",
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "build": "ng build && cap sync",
