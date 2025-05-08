@@ -5,8 +5,8 @@ const config: CapacitorConfig = {
   appName: 'issue-53571',
   webDir: 'www',
   plugins: {
-    StatusBar: {
-      overlaysWebView: true,
+    Keyboard: {
+      resizeOnFullScreen: false,
     },
   },
 };
