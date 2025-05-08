@@ -16,17 +16,15 @@ export class AppComponent {
     this.isDark = signal(darkModeMediaQuery.matches);
     darkModeMediaQuery.addEventListener('change', (evt: { matches: boolean }) => this.isDark.set(evt.matches));
 
-    effect(() => {
-      console.log('in effect');
+    effect(async () => {
       if (this.isDark()) {
-        console.log('Dark Mode');
-        EdgeToEdge.setBackgroundColor({ color: '#000000' });
-        StatusBar.setStyle({ style: Style.Dark });
+        await EdgeToEdge.setBackgroundColor({ color: '#000000' });
+        await StatusBar.setStyle({ style: Style.Dark });
       } else {
-        console.log('Light Mode');
-        EdgeToEdge.setBackgroundColor({ color: '#FFFFFF' });
-        StatusBar.setStyle({ style: Style.Light });
+        await EdgeToEdge.setBackgroundColor({ color: '#FFFFFF' });
+        await StatusBar.setStyle({ style: Style.Light });
       }
+      console.log('status bar info', await StatusBar.getInfo());
     });
   }
 }
