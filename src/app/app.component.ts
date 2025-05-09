@@ -1,6 +1,5 @@
 import { Component, effect, signal, WritableSignal } from '@angular/core';
 import { StatusBar, Style } from '@capacitor/status-bar';
-import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 
 @Component({
@@ -18,10 +17,8 @@ export class AppComponent {
 
     effect(async () => {
       if (this.isDark()) {
-        await EdgeToEdge.setBackgroundColor({ color: '#000000' });
         await StatusBar.setStyle({ style: Style.Dark });
       } else {
-        await EdgeToEdge.setBackgroundColor({ color: '#FFFFFF' });
         await StatusBar.setStyle({ style: Style.Light });
       }
       console.log('status bar info', await StatusBar.getInfo());
