@@ -1,4 +1,5 @@
 import { Component, effect, signal, WritableSignal } from '@angular/core';
+import { SplashScreen } from '@capacitor/splash-screen';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 
@@ -14,6 +15,8 @@ export class AppComponent {
     const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     this.isDark = signal(darkModeMediaQuery.matches);
     darkModeMediaQuery.addEventListener('change', (evt: { matches: boolean }) => this.isDark.set(evt.matches));
+
+    SplashScreen.hide();
 
     effect(async () => {
       if (this.isDark()) {
